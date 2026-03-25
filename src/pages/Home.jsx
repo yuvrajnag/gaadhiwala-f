@@ -53,7 +53,7 @@ const Home = () => {
                 name: 'Test User'
             };
             
-            const targetRoute = mockUser.role === 'driver' ? '/driver-dashboard' : '/booking-interface';
+            const targetRoute = '/booking-interface';
             localStorage.setItem('user', JSON.stringify(mockUser));
             startExitSequence(targetRoute);
         } catch (error) {
@@ -77,7 +77,7 @@ const Home = () => {
                 role: formData.role
             };
 
-            const targetRoute = mockUser.role === 'driver' ? '/driver-dashboard' : '/booking-interface';
+            const targetRoute = '/booking-interface';
             localStorage.setItem('user', JSON.stringify(mockUser));
             alert('Account created successfully!');
             startExitSequence(targetRoute);
@@ -254,16 +254,7 @@ const Home = () => {
                                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                                 </div>
                                             </div>
-                                            <select 
-                                                className="form-select" 
-                                                name="role"
-                                                value={formData.role}
-                                                onChange={handleInputChange}
-                                                onClick={(e) => e.stopPropagation()}
-                                            >
-                                                <option value="customer">Customer</option>
-                                                <option value="driver">Driver</option>
-                                            </select>
+                                            {/* Role selection removed: everyone is a customer for this demo */}
                                         </div>
                                         <button className="submit-btn" onClick={handleSignUp}>Create Account</button>
                                     </div>
