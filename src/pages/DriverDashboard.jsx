@@ -11,6 +11,7 @@ import dIcenter from '../assets/d_icenter.png';
 import statsImg from '../assets/stats.png';
 import weatherImg from '../assets/weather.png';
 import distanceImg from '../assets/distance.png';
+import logoImg from '../assets/logo.png';
 
 // --- Custom Map Markers ---
 const pickupIcon = L.divIcon({
@@ -877,7 +878,6 @@ const DriverDashboard = () => {
                         className="nav-item"
                         onClick={() => navigate(item.path)}
                     >
-                        {item.icon}
                         <span>{item.name}</span>
                     </button>
                 ))}
