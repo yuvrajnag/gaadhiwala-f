@@ -222,6 +222,17 @@ const DriverDashboard = () => {
                         }}
                     />
 
+                    {/* Logo added to Driver Hub */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '25px',
+                        left: '25px',
+                        zIndex: 10,
+                        pointerEvents: 'none'
+                    }}>
+                        <img src={logoImg} alt="Logo" style={{ width: '46px', height: 'auto' }} />
+                    </div>
+
                     {/* Expanded Map Overlay */}
                     {isMapExpanded && (
                         <div className="expanded-map-overlay">
