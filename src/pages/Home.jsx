@@ -344,11 +344,6 @@ const Home = () => {
                         onClick={() => {
                             setShowZoomTip(false);
                             localStorage.setItem('zoomTipShown', 'true');
-                            try {
-                                document.body.style.zoom = "0.75";
-                            } catch (e) {
-                                console.warn("Zoom not supported by browser", e);
-                            }
                         }}
                         style={{
                             background: '#0a0a0a',
