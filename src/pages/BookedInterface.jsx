@@ -59,6 +59,9 @@ const BookedInterface = () => {
     const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
     const [showQuickTips, setShowQuickTips] = useState(true);
+    const [rideCompleted, setRideCompleted] = useState(false);
+    const [rating, setRating] = useState(5);
+    const [ratingMessage, setRatingMessage] = useState('');
 
     useEffect(() => {
         if (!rideId) {
@@ -101,7 +104,16 @@ const BookedInterface = () => {
             setRide(prev => ({ ...prev, status: 'arrived' }));
         }, 10000);
 
-        return () => clearTimeout(arriveTimer);
+        // Simulate ride completion after 60 seconds
+        const completionTimer = setTimeout(() => {
+            setRideCompleted(true);
+            setRide(prev => ({ ...prev, status: 'completed' }));
+        }, 60000);
+
+        return () => {
+            clearTimeout(arriveTimer);
+            clearTimeout(completionTimer);
+        };
     }, [rideId, navigate, location.state]);
 
     const quickTips = [
@@ -151,28 +163,8 @@ const BookedInterface = () => {
                     <img src={logoImg} alt="Logo" className="nav-logo" />
                 </div>
 
-                <div className="nav-items-wrapper">
-                    {mainServices.map((service) => (
-                        <button
-                            key={service.name}
-                            className={`nav-btn ${service.name === 'booked interface' ? 'active' : ''}`}
-                            onClick={() => navigate(service.path)}
-                            title={service.name}
-                        >
-                            {service.icon}
-                        </button>
-                    ))}
-                </div>
+                {/* Navigation items removed as requested */}
 
-                <div className="bottom-nav-items">
-                    <button
-                        className="nav-btn"
-                        onClick={() => navigate('/profile')}
-                        title="Profile"
-                    >
-                        <User size={24} />
-                    </button>
-                </div>
             </aside>
 
             <main className="main-content-area booked-interface-main">
@@ -337,6 +329,66 @@ const BookedInterface = () => {
                     </div>
                 )}
             </main>
+
+            {rideCompleted && (
+                <div className="modal-overlay">
+                    <div className="modal-card rating-modal">
+                        <div className="modal-header-row">
+                            <div className="modal-icon-badge">
+                                <CheckCircle size={24} />
+                            </div>
+                            <div>
+                                <h3 className="modal-title">Ride Completed</h3>
+                                <p className="modal-subtitle">Hope you had a great trip!</p>
+                            </div>
+                        </div>
+                        
+                        <div className="modal-body">
+                            <div className="rating-section" style={{ textAlign: 'center', margin: '1rem 0' }}>
+                                <p style={{ color: '#ccc', marginBottom: '10px' }}>Rate your ride</p>
+                                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                                    {[1, 2, 3, 4, 5].map(star => (
+                                        <span 
+                                            key={star} 
+                                            onClick={() => setRating(star)}
+                                            style={{ 
+                                                fontSize: '2rem', 
+                                                cursor: 'pointer',
+                                                color: star <= rating ? '#facc15' : '#444'
+                                            }}
+                                        >
+                                            ★
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="modal-field">
+                                <label className="modal-label">Your Message</label>
+                                <div className="modal-input-wrap">
+                                    <textarea 
+                                        className="modal-input" 
+                                        placeholder="Tell us about your trip..."
+                                        value={ratingMessage}
+                                        onChange={(e) => setRatingMessage(e.target.value)}
+                                        style={{ minHeight: '80px', background: 'transparent', border: 'none', width: '100%', color: '#fff', padding: '10px', resize: 'none' }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="modal-actions">
+                            <button 
+                                className="modal-btn" 
+                                style={{ background: '#fff', color: '#000', width: '100%' }}
+                                onClick={() => navigate('/booking-interface')}
+                            >
+                                Submit Rating
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

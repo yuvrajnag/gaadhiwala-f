@@ -91,28 +91,11 @@ const BookedInterface2 = () => {
                     <img src={logoImg} alt="Logo" className="nav-logo" />
                 </div>
 
-                <div className="nav-items-wrapper">
-                    {mainServices.map((service) => (
-                        <button
-                            key={service.name}
-                            className={`nav-btn ${service.name === 'booked interface' ? 'active' : ''}`}
-                            onClick={() => navigate(service.path)}
-                            title={service.name}
-                        >
-                            {service.icon}
-                        </button>
-                    ))}
-                </div>
+                {/* Navigation items removed as requested */}
 
-                <div className="bottom-nav-items">
-                    <button
-                        className="nav-btn"
-                        onClick={() => navigate('/profile')}
-                        title="Profile"
-                    >
-                        <User size={24} />
-                    </button>
-                </div>
+
+                {/* Profile icon removed as requested */}
+
             </aside>
 
             <main className="main-content-area booked-interface-main">
